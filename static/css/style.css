@@ -110,7 +110,8 @@ h2 {
     margin-bottom: 10px;
 }
 
-.demo-pair img {
+.demo-pair img,
+.demo-pair video {
     max-width: 100%;
     border-radius: 6px;
 }
