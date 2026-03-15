@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Chronometer: Measuring Physical Frame Rate from Visual Dynamics</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>🕰️ Visual Chronometer</h1>
+        <p class="subtitle">The Pulse of Motion: Measuring Physical Frame Rate from Visual Dynamics</p>
+        <div class="authors">
+            <span>Xiangbo Gao</span>, <span>Mingyang Wu</span>, <span>Siyuan Yang</span>,
+            <span>Jiongze Yu</span>, <span>Pardis Taghavi</span>, <span>Fangzhou Lin</span>,
+            <span>Zhengzhong Tu</span>
+        </div>
+        <div class="affiliation">Texas A&amp;M University</div>
+        <div class="links">
+            <a href="#" class="btn">📄 Paper</a>
+            <a href="https://github.com/taco-group/Visual_Chronometer" class="btn">💻 Code</a>
+            <a href="https://huggingface.co/xiangbog/Visual_Chronometer" class="btn">🤗 Model</a>
+        </div>
+    </header>
+
+    <section id="abstract">
+        <h2>Why does this matter?</h2>
+        <p>
+            Modern video generators produce stunning visuals — but they lack a reliable <strong>internal clock</strong>.
+            A hummingbird might flap its wings in extreme slow motion; a person falling onto a bed might defy gravity.
+            This happens because models train indiscriminately on videos with vastly different real-world speeds, all forced into standardized frame rates.
+        </p>
+        <p>
+            We call this <strong>Chronometric Hallucination</strong>: generated motions exhibit ambiguous, unstable, and uncontrollable physical time scales.
+        </p>
+        <p>
+            <strong>Visual Chronometer</strong> recovers the true <em>Physical FPS (PhyFPS)</em> from visual motion alone — the frame rate that makes motion look natural.
+            By measuring and correcting PhyFPS, we significantly improve the perceived naturalness of AI-generated videos, validated through user studies.
+        </p>
+    </section>
+
+    <section class="demos">
+        <h2>PhyFPS Correction Demos</h2>
+        <p class="demos-intro">Side-by-side comparisons of original AI-generated videos (left) and PhyFPS-corrected versions (right). In all cases, users overwhelmingly preferred the corrected version.</p>
+        <div class="demo-grid">
+            <div class="demo-pair">
+                <p class="demo-prompt">"A brown hen scratching the dirt and pecking at the ground to hunt for worms."</p>
+                <p class="demo-meta">Meta FPS: 24 → PhyFPS: 35.8</p>
+                <img src="static/videos/pair_01.gif" alt="Demo 1: Hen pecking" loading="lazy">
+            </div>
+            <div class="demo-pair">
+                <p class="demo-prompt">"A frog leaping to snap up an ant."</p>
+                <p class="demo-meta">Meta FPS: 24 → PhyFPS: 60.2</p>
+                <img src="static/videos/pair_02.gif" alt="Demo 2: Frog leaping" loading="lazy">
+            </div>
+            <div class="demo-pair">
+                <p class="demo-prompt">"A panning shot following a yellow taxi driving down the street."</p>
+                <p class="demo-meta">Meta FPS: 16 → PhyFPS: 44.9</p>
+                <img src="static/videos/pair_03.gif" alt="Demo 3: Taxi driving" loading="lazy">
+            </div>
+            <div class="demo-pair">
+                <p class="demo-prompt">"Thick fog rolling over a mountain range like ocean waves."</p>
+                <p class="demo-meta">Meta FPS: 16 → PhyFPS: 36.7</p>
+                <img src="static/videos/pair_04.gif" alt="Demo 4: Fog rolling" loading="lazy">
+            </div>
+            <div class="demo-pair">
+                <p class="demo-prompt">"A girl pushing her friend across the room on a rolling office chair."</p>
+                <p class="demo-meta">Meta FPS: 24 → PhyFPS: 51.5</p>
+                <img src="static/videos/pair_05.gif" alt="Demo 5: Office chair" loading="lazy">
+            </div>
+            <div class="demo-pair">
+                <p class="demo-prompt">"Children playing together at an indoor playground."</p>
+                <p class="demo-meta">Meta FPS: 24 → PhyFPS: 49.8</p>
+                <img src="static/videos/pair_06.gif" alt="Demo 6: Children playing" loading="lazy">
+            </div>
+            <div class="demo-pair">
+                <p class="demo-prompt">"A worker spraying a misty disinfectant across an office space."</p>
+                <p class="demo-meta">Meta FPS: 24 → PhyFPS: 58.9</p>
+                <img src="static/videos/pair_07.gif" alt="Demo 7: Disinfectant spray" loading="lazy">
+            </div>
+            <div class="demo-pair">
+                <p class="demo-prompt">"A flock of sheep running across a grassy field."</p>
+                <p class="demo-meta">Meta FPS: 24 → PhyFPS: 52.5</p>
+                <img src="static/videos/pair_08.gif" alt="Demo 8: Sheep running" loading="lazy">
+            </div>
+            <div class="demo-pair">
+                <p class="demo-prompt">"A Pomeranian dog chasing a soccer ball across a lawn."</p>
+                <p class="demo-meta">Meta FPS: 24 → PhyFPS: 15.0</p>
+                <img src="static/videos/pair_09.gif" alt="Demo 9: Dog chasing ball" loading="lazy">
+            </div>
+            <div class="demo-pair">
+                <p class="demo-prompt">"Firecrackers bursting and sparking in the sky."</p>
+                <p class="demo-meta">Meta FPS: 16 → PhyFPS: 21.1</p>
+                <img src="static/videos/pair_10.gif" alt="Demo 10: Firecrackers" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section id="key-findings">
+        <h2>Key Findings</h2>
+        <div class="findings-grid">
+            <div class="finding">
+                <h3>📊 Severe Misalignment</h3>
+                <p>State-of-the-art video generators exhibit large gaps between their nominal frame rate and the physical motion speed of their outputs.</p>
+            </div>
+            <div class="finding">
+                <h3>⏱️ Temporal Instability</h3>
+                <p>Generated videos show inconsistent physical speed both across different prompts (inter-video) and within the same video (intra-video).</p>
+            </div>
+            <div class="finding">
+                <h3>✅ PhyFPS Corrections Work</h3>
+                <p>Re-timing generated videos to their predicted PhyFPS significantly improves human-perceived naturalness, as validated by our user study.</p>
+            </div>
+            <div class="finding">
+                <h3>🤖 VLMs Can't Do This</h3>
+                <p>General-purpose Vision-Language Models are unreliable PhyFPS judges, underscoring the need for our dedicated predictor.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="bibtex">
+        <h2>Citation</h2>
+        <pre><code>@article{gao2026visual_chronometer,
+  title={The Pulse of Motion: Measuring Physical Frame Rate from Visual Dynamics},
+  author={Gao, Xiangbo and Wu, Mingyang and Yang, Siyuan and Yu, Jiongze
+          and Taghavi, Pardis and Lin, Fangzhou and Tu, Zhengzhong},
+  year={2026}
+}</code></pre>
+    </section>
+
+    <footer>
+        <p>Visual Chronometer · Texas A&amp;M University · 2026</p>
+    </footer>
+</body>
+</html>
