@@ -27,7 +27,7 @@
         <p class="hero-affiliation">Texas A&amp;M University</p>
 
         <div class="hero-video-container">
-            <video src="static/videos/PulseOfMotion.mp4" autoplay loop muted playsinline class="hero-video-large"></video>
+            <video id="main-video" src="static/videos/PulseOfMotion.mp4" autoplay loop muted playsinline class="hero-video-large" title="Click to hear sound"></video>
         </div>
     </section>
 
@@ -188,5 +188,15 @@
         <p>Pulse of Motion &middot; Texas A&amp;M University</p>
     </footer>
 
+    <script>
+        const mainVideo = document.getElementById('main-video');
+        mainVideo.addEventListener('click', function() {
+            if (this.muted) {
+                this.muted = false;
+                this.controls = true;
+                this.play();
+            }
+        });
+    </script>
 </body>
 </html>

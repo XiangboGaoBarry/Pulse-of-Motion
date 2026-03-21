@@ -127,6 +127,7 @@ body {
     width: 100%;
     display: block;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 /* ─── Sections ─── */
