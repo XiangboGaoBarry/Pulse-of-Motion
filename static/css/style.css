@@ -99,6 +99,31 @@ body {
     font-size: 0.8rem;
     font-weight: 400;
     color: #86868b;
+    margin-bottom: 56px;
+}
+
+.author-link {
+    color: inherit;
+    text-decoration: none;
+    transition: font-weight 0.2s ease;
+}
+
+.author-link:hover {
+    font-weight: 600;
+}
+
+.hero-video-container {
+    max-width: 960px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    animation: fadeUp 0.7s ease 0.3s both;
+}
+
+.hero-video-large {
+    width: 100%;
+    display: block;
 }
 
 /* ─── Sections ─── */
@@ -200,6 +225,7 @@ h2 {
     min-height: 2.9em;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
