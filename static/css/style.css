@@ -72,22 +72,23 @@ body {
 }
 
 .pill {
-    display: inline-block;
-    padding: 10px 28px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #fff;
-    background-color: #1d1d1f;
-    text-decoration: none;
-    border: 1px solid #1d1d1f;
-    border-radius: 980px;
-    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+    display: inline-block !important;
+    padding: 12px 32px !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    background-color: #1d1d1f !important;
+    text-decoration: none !important;
+    border: 1px solid #1d1d1f !important;
+    border-radius: 980px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .pill:hover {
-    background-color: #424245;
-    border-color: #424245;
-    transform: scale(1.02);
+    background-color: #000 !important;
+    border-color: #000 !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
 }
 
 .hero-authors {
@@ -130,6 +131,49 @@ body {
     display: block;
     border-radius: 20px;
     cursor: pointer;
+}
+
+/* ─── Leaderboard Promo ─── */
+.leaderboard-promo {
+    margin-top: 32px;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #6e6e73;
+}
+
+.leaderboard-link {
+    display: inline-block;
+    color: #0071e3;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    padding: 0 4px;
+    transition: color 0.3s ease;
+}
+
+.leaderboard-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #0071e3;
+    transform: scaleX(0.8);
+    transition: transform 0.3s ease;
+}
+
+.leaderboard-link:hover {
+    color: #0077ed;
+}
+
+.leaderboard-link:hover::after {
+    transform: scaleX(1);
+}
+
+.promo-highlight {
+    color: #1d1d1f;
+    font-weight: 600;
 }
 
 /* ─── Sections ─── */
